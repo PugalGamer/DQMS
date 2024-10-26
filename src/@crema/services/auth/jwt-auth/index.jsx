@@ -8,10 +8,11 @@ import axios from '@crema/services/axios';
 // });
 // Retrieve the token from localStorage and log it
 export const token = localStorage.getItem('token');
-console.log('Token:', token); // Log the token to ensure it's present
+// console.log('Token:', token); // Log the token to ensure it's present
 
 const jwtAxios = axios.create({
   baseURL: 'http://192.168.1.49:8000/api/', // YOUR_API_URL HERE
+  // baseURL: 'http://192.168.1.49/dqms/backend/public/api/', // YOUR_API_URL HERE
   headers: {
     'Content-Type': 'application/json',
     // ...(token ? { Authorization: `Bearer ${token}` } : {}), // Include the token if it exists

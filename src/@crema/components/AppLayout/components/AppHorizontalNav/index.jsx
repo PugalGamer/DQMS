@@ -8,7 +8,11 @@ const AppHorizontalNav = ({ className, routesConfig }) => {
   const { pathname } = useLocation();
 
   const selectedKeys = pathname.substr(1);
+  console.log(selectedKeys);
+  
   const defaultOpenKeys = selectedKeys.split('/')[0];
+  console.log(defaultOpenKeys);
+  
   return (
     <Menu
       mode='horizontal'

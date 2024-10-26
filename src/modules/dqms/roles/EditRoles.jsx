@@ -8,7 +8,6 @@ import AppCard from '../../../@crema/components/AppCard';
 
 const EditRoles = () => {
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
   const [modules, setModules] = useState([]);
   const [name, setName] = useState('');
   const [rolePermissions, setRolePermissions] = useState(null);
@@ -25,12 +24,12 @@ const EditRoles = () => {
         setModules(response.data.module);
       } catch (error) {
         console.error('Error fetching modules:', error);
-        messageApi.error('Failed to fetch modules.');
+        message.error(error);
       }
     };
 
     fetchModules();
-  }, [messageApi]);
+  }, []);
 
   // Pre-fill form based on the passed rolePermissions
   useEffect(() => {
@@ -68,7 +67,7 @@ const EditRoles = () => {
   // Handle form submission
   const handleSubmit = (values) => {
     if (!permissionsData || !permissionsData.per_role_id) {
-      messageApi.error('Role ID is missing.');
+      message.error('Role ID is missing.');
       return;
     }
 
@@ -102,8 +101,8 @@ const EditRoles = () => {
 
     jwtAxios
       .put(`role-permission-update`, payload) // Pass payload here
-      .then(() => {
-        messageApi.success('Permissions updated successfully.');
+      .then((response) => {
+        message.success(response.data.message);
         form.resetFields();
         setTimeout(() => {
           navigate('/roles');
@@ -111,169 +110,106 @@ const EditRoles = () => {
       })
       .catch((error) => {
         console.error('Error submitting permissions:', error);
-        messageApi.error('Failed to update permissions.');
+        message.error(error.response?.data?.message);
       });
   };
 
   return (
-    <AppCard>
-      {contextHolder}
-      <AppComponentHeader>Edit Role-Permissions!</AppComponentHeader>
-      <AppRowContainer>
-        <Col span={24}>
-          <Space direction="vertical" style={{ width: '100%' }}></Space>
-          {/* <Form form={form} onFinish={handleSubmit}>
-            <AppRowContainer>
-              <Col lg={6}>
-                <Input value={name} readOnly />
-              </Col>
-            </AppRowContainer>
-            <AppRowContainer>
-              <Col lg={4}></Col>
-              <Col lg={2}>Create</Col>
-              <Col lg={2}>View</Col>
-              <Col lg={2}>Update</Col>
-              <Col lg={2}>Delete</Col>
-            </AppRowContainer>
-            {modules.map((module) => (
-              <AppRowContainer key={module.mod_id}>
-                <Col lg={4}>
-                  <Form.Item
-                    label={module.mod_name}
-                    name={`module_${module.mod_id}`}
-                  />
-                </Col>
-                <Col lg={2}>
-                  <Form.Item
-                    name={`create_${module.mod_id}`}
-                    valuePropName="checked"
-                  >
-                    <Checkbox />
-                  </Form.Item>
-                </Col>
-                <Col lg={2}>
-                  <Form.Item
-                    name={`view_${module.mod_id}`}
-                    valuePropName="checked"
-                  >
-                    <Checkbox />
-                  </Form.Item>
-                </Col>
-                <Col lg={2}>
-                  <Form.Item
-                    name={`update_${module.mod_id}`}
-                    valuePropName="checked"
-                  >
-                    <Checkbox />
-                  </Form.Item>
-                </Col>
-                <Col lg={2}>
-                  <Form.Item
-                    name={`delete_${module.mod_id}`}
-                    valuePropName="checked"
-                  >
-                    <Checkbox />
-                  </Form.Item>
-                </Col>
-              </AppRowContainer>
-            ))}
+    <AppRowContainer>
+      <Col span={14} offset={5}>
+        <AppCard>
+          <AppComponentHeader title="Edit Role-Permissions!" />
+          <AppRowContainer>
+            <Col span={24}>
+              <Space direction="vertical" style={{ width: '100%' }}></Space>
 
-            <Space className="d-flex">
-              <Button
-                type="primary"
-                className="d-flex"
-                onClick={() => navigate('/roles')}
-              >
-                Back
-              </Button>
-              <Button type="primary" htmlType="submit" className="d-flex">
-                Save
-              </Button>
-            </Space>
-          </Form> */}
-          <Form form={form} onFinish={handleSubmit}>
-            <AppRowContainer gutter={[16, 16]}>
-              <Col xs={24} sm={12} md={8} lg={6}>
-                <Input value={name} readOnly />
-              </Col>
-            </AppRowContainer>
+              <Form form={form} onFinish={handleSubmit}>
+                <AppRowContainer gutter={[16, 16]}>
+                  <Space>
+                    <Col xs={24} sm={24} md={24} lg={24}>
+                      <Input value={name} readOnly />
+                    </Col>
+                  </Space>
+                </AppRowContainer>
 
-            <AppRowContainer gutter={[16, 16]}>
-              <Col xs={0} sm={0} md={8} lg={4}></Col>{' '}
-              {/* Empty column for spacing on larger screens */}
-              <Col xs={6} sm={6} md={4} lg={2}>
-                Create
-              </Col>
-              <Col xs={6} sm={6} md={4} lg={2}>
-                View
-              </Col>
-              <Col xs={6} sm={6} md={4} lg={2}>
-                Update
-              </Col>
-              <Col xs={6} sm={6} md={4} lg={2}>
-                Delete
-              </Col>
-            </AppRowContainer>
+                <AppRowContainer gutter={[16, 16]}>
+                  <Col xs={0} sm={0} md={8} lg={8}></Col>
+                  {/* Empty column for spacing on larger screens */}
+                  <Col xs={6} sm={6} md={4} lg={4}>
+                    Create
+                  </Col>
+                  <Col xs={6} sm={6} md={4} lg={4}>
+                    View
+                  </Col>
+                  <Col xs={6} sm={6} md={4} lg={4}>
+                    Update
+                  </Col>
+                  <Col xs={6} sm={6} md={4} lg={4}>
+                    Delete
+                  </Col>
+                </AppRowContainer>
 
-            {modules.map((module) => (
-              <AppRowContainer key={module.mod_id} gutter={[16, 16]}>
-                <Col xs={24} sm={12} md={8} lg={4}>
-                  <Form.Item
-                    label={module.mod_name}
-                    name={`module_${module.mod_id}`}
-                  />
-                </Col>
-                <Col xs={6} sm={6} md={4} lg={2}>
-                  <Form.Item
-                    name={`create_${module.mod_id}`}
-                    valuePropName="checked"
-                  >
-                    <Checkbox />
-                  </Form.Item>
-                </Col>
-                <Col xs={6} sm={6} md={4} lg={2}>
-                  <Form.Item
-                    name={`view_${module.mod_id}`}
-                    valuePropName="checked"
-                  >
-                    <Checkbox />
-                  </Form.Item>
-                </Col>
-                <Col xs={6} sm={6} md={4} lg={2}>
-                  <Form.Item
-                    name={`update_${module.mod_id}`}
-                    valuePropName="checked"
-                  >
-                    <Checkbox />
-                  </Form.Item>
-                </Col>
-                <Col xs={6} sm={6} md={4} lg={2}>
-                  <Form.Item
-                    name={`delete_${module.mod_id}`}
-                    valuePropName="checked"
-                  >
-                    <Checkbox />
-                  </Form.Item>
-                </Col>
-              </AppRowContainer>
-            ))}
+                {modules.map((module) => (
+                  <AppRowContainer key={module.mod_id} gutter={[16, 16]}>
+                    <Col xs={24} sm={12} md={8} lg={8}>
+                      <Form.Item
+                        label={module.mod_name}
+                        name={`module_${module.mod_id}`}
+                      />
+                    </Col>
+                    <Col xs={6} sm={6} md={4} lg={4}>
+                      <Form.Item
+                        name={`create_${module.mod_id}`}
+                        valuePropName="checked"
+                      >
+                        <Checkbox />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={6} sm={6} md={4} lg={4}>
+                      <Form.Item
+                        name={`view_${module.mod_id}`}
+                        valuePropName="checked"
+                      >
+                        <Checkbox />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={6} sm={6} md={4} lg={4}>
+                      <Form.Item
+                        name={`update_${module.mod_id}`}
+                        valuePropName="checked"
+                      >
+                        <Checkbox />
+                      </Form.Item>
+                    </Col>
+                    <Col xs={6} sm={6} md={4} lg={4}>
+                      <Form.Item
+                        name={`delete_${module.mod_id}`}
+                        valuePropName="checked"
+                      >
+                        <Checkbox />
+                      </Form.Item>
+                    </Col>
+                  </AppRowContainer>
+                ))}
 
-            <Space className="d-flex" style={{ marginTop: '16px' }}>
-              <Button
-                type="primary"
-                className="d-flex"
-                onClick={() => navigate('/roles')}
-              >
-                Back
-              </Button>
-              <Button type="primary" htmlType="submit" className="d-flex">
-                Save
-              </Button>
-            </Space>
-          </Form>
-        </Col>
-      </AppRowContainer>
-    </AppCard>
+                <Space className="d-flex" style={{ marginTop: '16px' }}>
+                  <Button
+                    type="primary"
+                    className="d-flex"
+                    onClick={() => navigate('/roles')}
+                  >
+                    Back
+                  </Button>
+                  <Button type="primary" htmlType="submit" className="d-flex">
+                    Save
+                  </Button>
+                </Space>
+              </Form>
+            </Col>
+          </AppRowContainer>
+        </AppCard>
+      </Col>
+    </AppRowContainer>
   );
 };
 

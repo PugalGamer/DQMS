@@ -26,6 +26,7 @@ import jwtAxios from '../../../@crema/services/auth/jwt-auth';
 import AppCard from '../../../@crema/components/AppCard';
 import AppComponentHeader from '../../../@crema/components/AppComponentHeader';
 import AppRowContainer from '../../../@crema/components/AppRowContainer';
+import AppAnimate from '../../../@crema/components/AppAnimate';
 
 const Employee = () => {
   const [roles, setRoles] = useState([]); // State to store fetched roles
@@ -315,119 +316,110 @@ const Employee = () => {
   // };
 
   return (
-    <AppCard>
-      <AppComponentHeader title="Empleoyee List!" />
-      <AppRowContainer>
-        <Col>
-          {/* Left side items */}
-          <Space>
-            <Dropdown
-              trigger={['click']}
-              dropdownRender={() => (
-                <div
-                  style={{
-                    backgroundColor: 'white',
-                    padding: '8px',
-                    borderRadius: '4px',
-                    border: '1px solid whitesmoke',
-                    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-                  }}
-                >
-                  {menuItems}
-                </div>
-              )}
-            >
-              <Button>
-                All <DownOutlined />
-              </Button>
-            </Dropdown>
-          </Space>
+    // <AppCard>
+    //   <AppComponentHeader title="Empleoyee List!" />
+    //   <AppRowContainer>
+    //     <Col>
+    //       {/* Left side items */}
+    //       <Space>
+    //         <Dropdown
+    //           trigger={['click']}
+    //           dropdownRender={() => (
+    //             <div
+    //               style={{
+    //                 backgroundColor: 'white',
+    //                 padding: '8px',
+    //                 borderRadius: '4px',
+    //                 border: '1px solid whitesmoke',
+    //                 boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+    //               }}
+    //             >
+    //               {menuItems}
+    //             </div>
+    //           )}
+    //         >
+    //           <Button>
+    //             Filters <DownOutlined />
+    //           </Button>
+    //         </Dropdown>
+    //       </Space>
+    //     </Col>
+    //   </AppRowContainer>
+    //   <AppRowContainer>
+    //     <Col span={24}>
+    //       <Space direction="vertical" style={{ width: '100%' }}>
+    //         <Table
+    //           columns={filteredColumns} // Filtered columns
+    //           dataSource={filteredData} // Filtered data
+    //           pagination={false}
+    //           scroll={{ y: 240 }}
+    //           loading={loading} // Loading state
+    //           rowKey={(record) => record.role_id} // Key for rows
+    //         />
+    //       </Space>
+    //     </Col>
+    //   </AppRowContainer>
+    //   <div>
+    //     <Space>
+    //       {/* Show the "First" button to jump to the first page */}
+    //       <Button
+    //         size="small"
+    //         onClick={() => handlePageChange(1)}
+    //         disabled={currentPage === 1} // Disable if already on the last page
+    //       >
+    //         <DoubleLeftOutlined />
+    //       </Button>
+    //       {/* Previous Button */}
+    //       <Button
+    //         size="small"
+    //         onClick={() => handlePageChange(currentPage - 1)}
+    //         disabled={currentPage === 1} // Disable if on the first page
+    //       >
+    //         <LeftOutlined />
+    //       </Button>
+
+    //       {/* Render page buttons */}
+    //       {renderPageButtons()}
+
+    //       {/* Next Button */}
+    //       <Button
+    //         size="small"
+    //         onClick={() => handlePageChange(currentPage + 1)}
+    //         disabled={currentPage === totalPages} // Disable if on the last page
+    //       >
+    //         <RightOutlined />
+    //       </Button>
+
+    //       {/* Show the "Last" button to jump to the last page */}
+    //       <Button
+    //         size="small"
+    //         onClick={() => handlePageChange(totalPages)}
+    //         disabled={currentPage === totalPages} // Disable if already on the last page
+    //       >
+    //         <DoubleRightOutlined />
+    //       </Button>
+    //     </Space>
+    //   </div>
+    //   {/* Modal for role details */}
+    //   <Modal
+    //     title="Role Details"
+    //     open={open}
+    //     onOk={handleOk}
+    //     onCancel={handleCancel}
+    //   >
+    //     <p>{modalText}</p>
+    //   </Modal>
+    // </AppCard>
+    <AppAnimate animation="transition.slideUpIn" delay={200}>
+      <AppRowContainer delay={150}>
+        <Col xs={24} md={14} xl={18} key={'d'}>
+          <AppCard>one</AppCard>
         </Col>
-        {/* <Col>
-          <Space>
-            <Search
-              placeholder="Search by ID or Name"
-              allowClear
-              size="middle"
-              value={searchTerm}
-              onChange={(e) => handleSearch(e.target.value)} // Update search term dynamically
-            />
-            <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            style={{ marginLeft: '10px' }}
-            onClick={() => navigate('/admin-panel/roles/create')}
-          >
-            Add
-          </Button>
-          </Space>
-        </Col> */}
-      </AppRowContainer>
-      <AppRowContainer>
-        <Col span={24}>
-          <Space direction="vertical" style={{ width: '100%' }}>
-            <Table
-              columns={filteredColumns} // Filtered columns
-              dataSource={filteredData} // Filtered data
-              pagination={false}
-              scroll={{ y: 240 }}
-              loading={loading} // Loading state
-              rowKey={(record) => record.role_id} // Key for rows
-            />
-          </Space>
+        <Col xs={24} md={10} xl={6} key={'e'}>
+          <AppCard>two</AppCard>
         </Col>
       </AppRowContainer>
-      <div>
-        <Space>
-          {/* Show the "First" button to jump to the first page */}
-          <Button
-            size="small"
-            onClick={() => handlePageChange(1)}
-            disabled={currentPage === 1} // Disable if already on the last page
-          >
-            <DoubleLeftOutlined />
-          </Button>
-          {/* Previous Button */}
-          <Button
-            size="small"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1} // Disable if on the first page
-          >
-            <LeftOutlined />
-          </Button>
-
-          {/* Render page buttons */}
-          {renderPageButtons()}
-
-          {/* Next Button */}
-          <Button
-            size="small"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages} // Disable if on the last page
-          >
-            <RightOutlined />
-          </Button>
-
-          {/* Show the "Last" button to jump to the last page */}
-          <Button
-            size="small"
-            onClick={() => handlePageChange(totalPages)}
-            disabled={currentPage === totalPages} // Disable if already on the last page
-          >
-            <DoubleRightOutlined />
-          </Button>
-        </Space>
-      </div>
-      {/* Modal for role details */}
-      <Modal
-        title="Role Details"
-        open={open}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p>{modalText}</p>
-      </Modal>
-    </AppCard>
+    </AppAnimate>
   );
 };
 

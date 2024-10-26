@@ -215,24 +215,23 @@ const Roles = () => {
       })
       .catch((error) => {
         console.error('Error fetching role permissions:', error);
-        message.error('Failed to fetch role permissions');
       });
   };
   const handleDelete = (roleId) => {
     jwtAxios
       .delete(`role-permission-delete/?role_id=${roleId}`)
       .then((response) => {
+        message.success(response.data.message);
         console.log('Role deleted successfully');
         const filtered = roles.filter((role) => role.role_id !== roleId); // Adjust to match your data structure
         setRoles(filtered); // Update state with filtered roles
         setFilteredData(filtered); // Update table data
         setSelectedRole(null); // Clear selected role
-        message.success('Role deleted successfully!');
         fetchRoles(currentPage); // Fetch updated data
       })
       .catch((error) => {
         console.error('Error deleting role:', error);
-        message.error('Error deleting role!');
+        message.error(error.response?.data?.message);
       });
   };
 
@@ -260,7 +259,7 @@ const Roles = () => {
               )}
             >
               <Button variant="outlined" color="danger">
-                All <DownOutlined />
+                Filters <DownOutlined />
               </Button>
             </Dropdown>
           </Space>

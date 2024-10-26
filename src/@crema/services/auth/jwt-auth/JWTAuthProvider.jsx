@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import { useInfoViewActionsContext } from '@crema/context/AppContextProvider/InfoViewContextProvider';
 import jwtAxios, { setAuthToken } from './index';
 import { useInfoViewActionsContext } from '../../../context/AppContextProvider/InfoViewContextProvider';
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Form, Input, message, Modal } from 'antd';
 import { useDispatch } from 'react-redux';
 import { setMenuData } from '../../../../store/userAction';
 import { useNavigate } from 'react-router-dom';
@@ -100,11 +100,13 @@ const JWTAuthAuthProvider = ({ children }) => {
           isAuthenticated: false, // Authentication is still pending OTP verification
           isLoading: false,
         });
-        infoViewActionsContext.fetchSuccess();
         console.log(data.message);
 
         // Show the OTP modal after successful login
         setIsModalVisible(true);
+        infoViewActionsContext.fetchSuccess(data.message);
+        message.success(data.message); // Temporary notification for testing
+
         setEmail(email);
         otpForm.resetFields(); // Reset the form fields
       } else {
@@ -162,6 +164,7 @@ const JWTAuthAuthProvider = ({ children }) => {
       if (data.status) {
         // OTP verified
         setIsModalVisible(false); // Close modal first
+        message.success(data.message);
         // OTP verified, set user as authenticated
         localStorage.setItem('token', data.token);
         setAuthToken(data.token);
@@ -219,7 +222,6 @@ const JWTAuthAuthProvider = ({ children }) => {
   const logout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('persist:root');
-    navigate('/signin');
     setAuthToken();
     setJWTAuthData({
       user: null,

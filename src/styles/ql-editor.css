@@ -4,6 +4,23 @@
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
  */
+/* container*/
+ .hWzJpo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    background-color: rgb(244, 247, 254) !important;
+}
+/* side seting,theme setting*/
+.gwuNas {
+    position: fixed;
+    right: 0;
+    top: 85px;
+    z-index: 9;
+    display: none !important;
+}
 .ql-container {
     box-sizing: border-box;
     font-family: 'Be Vietnam', serif;
