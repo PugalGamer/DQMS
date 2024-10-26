@@ -12,11 +12,11 @@ const AppFooter = () => {
   if (footer) {
     return (
       <StyledMainFooter>
-        <p>Copy right @crema 2021</p>
+        <p>Copy right @DQMS 2024</p>
         <StyledFooterBtnView>
-          <StyledFooterBtn type='link' color='primary'>
+          {/* <StyledFooterBtn type='link' color='primary'>
             Buy Now
-          </StyledFooterBtn>
+          </StyledFooterBtn> */}
         </StyledFooterBtnView>
       </StyledMainFooter>
     );

@@ -60,7 +60,7 @@ export const StyledAuthCardHeader = styled.div`
 
   & img {
     cursor: pointer;
-    height: 36px;
+    height: 50px;
     margin-right: 10px;
 
     [dir='rtl'] & {

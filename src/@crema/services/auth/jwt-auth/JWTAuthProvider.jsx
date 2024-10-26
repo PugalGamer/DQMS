@@ -219,15 +219,29 @@ const JWTAuthAuthProvider = ({ children }) => {
     }
   };
 
+  // const logout = async () => {
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('persist:root');
+  //   setAuthToken();
+  //   setJWTAuthData({
+  //     user: null,
+  //     isLoading: false,
+  //     isAuthenticated: false,
+  //   });
+  // };
   const logout = async () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('persist:root');
-    setAuthToken();
-    setJWTAuthData({
-      user: null,
-      isLoading: false,
-      isAuthenticated: false,
-    });
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('persist:root');
+      setAuthToken(); // Assuming this is to clear tokens from axios headers
+      setJWTAuthData({
+        user: null,
+        isLoading: false,
+        isAuthenticated: false,
+      });
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
   };
 
   return (

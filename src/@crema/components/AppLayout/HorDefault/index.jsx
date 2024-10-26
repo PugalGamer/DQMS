@@ -49,9 +49,10 @@ const HorDefault = ({ routes, routesConfig }) => {
       <StyledAppLayoutHorMain>
         <StyledContainer>
           <AppContentView routes={routes} />
-          <AppFooter />
         </StyledContainer>
       </StyledAppLayoutHorMain>
+      <AppFooter />
+
       <AppThemeSetting />
     </StyledAppLayoutHor>
   );

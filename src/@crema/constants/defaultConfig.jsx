@@ -185,7 +185,7 @@ const defaultConfig = {
   footerType: FooterType.FLUID,
   navStyle: import.meta.env.VITE_NAV_STYLE,
   layoutType: import.meta.env.VITE_LAYOUT_TYPE,
-  footer: false,
+  footer: true,
   rtlLocale: ['ar'],
 };
 export default defaultConfig;
