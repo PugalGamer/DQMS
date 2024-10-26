@@ -1,5 +1,11 @@
 import React from 'react';
 import { RoutePermittedRole } from '@crema/constants/AppEnums';
+const EditRoleindex = React.lazy(
+  () => import('../../../modules/dqms/roles/EditRoles/EditRoleindex'),
+);
+const CreateRoleindex = React.lazy(
+  () => import('../../../modules/dqms/roles/CraeteRoles/CreateRoleindex'),
+);
 
 const Dashboard = React.lazy(
   () => import('../../../modules/dqms/dashboard/Dashboard'),
@@ -9,12 +15,6 @@ const Employee = React.lazy(
 );
 
 const Roles = React.lazy(() => import('../../../modules/dqms/roles/Roles'));
-const CreateRoles = React.lazy(
-  () => import('../../../modules/dqms/roles/CreateRoles'),
-);
-const EditRoles = React.lazy(
-  () => import('../../../modules/dqms/roles/EditRoles'),
-);
 
 export const dqmsConfig = [
   {
@@ -25,12 +25,12 @@ export const dqmsConfig = [
   {
     permittedRole: RoutePermittedRole.User,
     path: '/role-permission-create',
-    element: <CreateRoles />,
+    element: <CreateRoleindex />,
   },
   {
     permittedRole: RoutePermittedRole.User,
     path: '/role-permission-edit',
-    element: <EditRoles />,
+    element: <EditRoleindex />,
   },
   {
     permittedRole: RoutePermittedRole.User,

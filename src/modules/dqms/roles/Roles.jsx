@@ -292,7 +292,7 @@ const Roles = () => {
             <Table
               columns={filteredColumns} // Filtered columns
               dataSource={filteredData} // Filtered data
-              scroll={{ y: 240 }}
+              scroll={{ x: 800, y: 400 }}
               pagination={false}
               loading={loading} // Loading state
               rowKey={(record) => record.role_id} // Key for rows

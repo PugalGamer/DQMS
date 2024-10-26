@@ -20,9 +20,7 @@ const AppVerticalNav = ({ routesConfig }) => {
   }, []);
 
   useEffect(() => {
-    alert("useeffect")
     if (pathname && document.getElementById(pathname)) {
-      alert("if")
       setTimeout(() => {
         document
           .getElementById(pathname)
@@ -30,9 +28,6 @@ const AppVerticalNav = ({ routesConfig }) => {
       }, 1);
     }
   }, [pathname]);
-  console.log(document.getElementById(pathname));
-  console.log(pathname);
-  
 
   const onOpenChange = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
